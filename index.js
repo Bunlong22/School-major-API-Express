@@ -10,4 +10,5 @@ app.get('/api/majors', (req, res) => {
         'Name: Telecom and Networking'
     ])
 })
-app.listen(3003, () => console.log("Listening on Port 3003..."));
+const port = 3003;
+app.listen(3003, () => console.log(`Listening on Port ${port}...`));
