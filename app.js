@@ -6,7 +6,7 @@ const majors = [
   { id: 1, majorName: 'Computer Science', difficulty: 'Medium' },
   { id: 2, majorName: 'Mathematics', difficulty: 'Hard' },
 ];
-
+// To display the View all data for route "/"
 function renderHome(response) {
   response.writeHead(200, { 'Content-Type': 'text/html' });
   response.write('<!DOCTYPE html>');
