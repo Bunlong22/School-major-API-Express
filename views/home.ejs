@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>School Major Management System</title>
+  </head>
+  <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td,
+    th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+  </style>
+  <body>
+    <button id="addBtn">Add Major</button>
+    <button id="viewBtn">View and Delete Majors</button>
+    <button id="updateBtn">Update Major</button>
+
+    <!-- Add Major -->
+    <form id="addMajorForm" style="display: none" action="/" method="post">
+      <input type="number" placeholder="ID" name="majorID" required />
+      <input type="text" placeholder="Major Name" name="majorName" required />
+      <input type="text" placeholder="Difficulty" name="difficulty" required />
+      <button type="submit">Add</button>
+    </form>
+
+    <!-- View Majors -->
+    <table id="viewMajorTable" style="display: none">
+      <tr>
+        <th>ID</th>
+        <th>Major Name</th>
+        <th>Difficulty</th>
+        <th>Delete</th>
+      </tr>
+      <% data.forEach(major => { %>
+      <tr>
+        <td><%= major.id %></td>
+        <td><%= major.majorName %></td>
+        <td><%= major.difficulty %></td>
+        <td>
+          <form action="/delete" method="post">
+            <input type="hidden" name="majorName" value="<%= major.majorName %>" />
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </table>
+
+    <!-- Update Major -->
+    <form action="/update" method="post" id="updateMajorForm">
+      <input type="text" placeholder="Major ID" name="id" />
+      <input type="text" placeholder="Major Name" name="majorName" />
+      <input type="text" placeholder="Difficulty" name="difficulty" />
+      <button type="submit">Update</button>
+    </form>
+
+    <script>
+      function showAddForm() {
+        document.getElementById("addMajorForm").style.display = "block";
+        document.getElementById("viewMajorTable").style.display = "none";
+        document.getElementById("updateMajorForm").style.display = "none";
+      }
+
+      function showViewTable() {
+        document.getElementById("viewMajorTable").style.display = "block";
+        document.getElementById("addMajorForm").style.display = "none";
+        document.getElementById("updateMajorForm").style.display = "none";
+      }
+
+      function showUpdateForm() {
+        document.getElementById("updateMajorForm").style.display = "block";
+        document.getElementById("addMajorForm").style.display = "none";
+        document.getElementById("viewMajorTable").style.display = "none";
+      }
+
+      document.getElementById("addBtn").addEventListener("click", showAddForm);
+      document.getElementById("viewBtn").addEventListener("click", showViewTable);
+      document.getElementById("updateBtn").addEventListener("click", showUpdateForm);
+
+      document.addEventListener("DOMContentLoaded", function () {
+        showViewTable();
+      });
+
+      function resetView() {
+        showViewTable();
+      }
+
+      document.getElementById("addMajorForm").addEventListener("submit", resetView);
+      document.getElementById("updateMajorForm").addEventListener("submit", resetView);
+    </script>
+  </body>
+</html>
